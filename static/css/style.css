@@ -1,0 +1,417 @@
+/* ============================================
+   오늘의 다이어리 - 디자인 토큰
+   ============================================ */
+:root {
+  --bg: #FFF9F2;
+  --accent-joy: #FFB627;      /* 기쁨 */
+  --accent-excited: #E8A0A0;  /* 설렘 */
+  --accent-calm: #8FA998;     /* 평온 */
+  --text: #4A3B35;
+  --text-muted: #8A7A70;
+  --card-bg: #FFFFFF;
+  --shadow: rgba(74, 59, 53, 0.12);
+  --shadow-strong: rgba(74, 59, 53, 0.22);
+  --border: #F0E3D3;
+
+  --font-display: 'Gaegu', sans-serif;
+  --font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* 키보드 포커스 시 항상 보이도록 */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--accent-calm);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ============================================
+   헤더 / 네비게이션
+   ============================================ */
+.site-header {
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.site-header__inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo__mark { font-size: 1.4rem; }
+
+.logo__text {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.site-nav__link {
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 8px 4px;
+}
+
+.site-nav__link:hover { color: var(--text); }
+
+.site-nav__link--cta {
+  background: var(--accent-joy);
+  color: var(--text);
+  padding: 10px 18px;
+  border-radius: 999px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.site-nav__link--cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px var(--shadow);
+}
+
+/* ============================================
+   메인 레이아웃
+   ============================================ */
+.site-main {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+  min-height: 60vh;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  margin: 0 0 4px;
+}
+
+.page-subtitle {
+  color: var(--text-muted);
+  margin: 0 0 28px;
+}
+
+/* ============================================
+   시그니처 요소: 월간 무드 캘린더 스트립
+   ============================================ */
+.mood-calendar {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 20px 24px;
+  margin-bottom: 36px;
+}
+
+.mood-calendar__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.mood-calendar__title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.mood-calendar__hint {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.mood-calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  gap: 6px;
+}
+
+.mood-calendar__day {
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  background: var(--border);
+}
+
+.mood-calendar__day--joy { background: var(--accent-joy); }
+.mood-calendar__day--excited { background: var(--accent-excited); }
+.mood-calendar__day--calm { background: var(--accent-calm); }
+
+.mood-calendar__legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 14px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.mood-calendar__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mood-calendar__legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+/* ============================================
+   다이어리 카드 그리드 (목록)
+   ============================================ */
+.diary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 28px;
+}
+
+.diary-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: 0 4px 12px var(--shadow);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  position: relative;
+}
+
+/* 카드마다 살짝 다른 기울기 - 진짜 다이어리를 펼쳐놓은 느낌 */
+.diary-card:nth-child(3n+1) { transform: rotate(-1.4deg); }
+.diary-card:nth-child(3n+2) { transform: rotate(1deg); }
+.diary-card:nth-child(3n+3) { transform: rotate(-0.6deg); }
+
+.diary-card:hover {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: 0 10px 22px var(--shadow-strong);
+}
+
+.diary-card__tape {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 60px;
+  height: 20px;
+  background: rgba(232, 160, 160, 0.55);
+}
+
+.diary-card__date {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.diary-card__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.diary-card__excerpt {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  margin: 0 0 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.mood-tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+  color: var(--text);
+}
+
+.mood-tag--joy { background: var(--accent-joy); }
+.mood-tag--excited { background: var(--accent-excited); }
+.mood-tag--calm { background: var(--accent-calm); }
+
+/* ============================================
+   빈 상태 (게시글이 하나도 없을 때)
+   ============================================ */
+.empty-state {
+  text-align: center;
+  padding: 64px 24px;
+  color: var(--text-muted);
+}
+
+.empty-state__title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+/* ============================================
+   상세 페이지 (다이어리 한 페이지를 펼친 느낌)
+   ============================================ */
+.diary-detail {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 40px;
+  box-shadow: 0 6px 20px var(--shadow);
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.diary-detail__date {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--text-muted);
+}
+
+.diary-detail__title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin: 6px 0 16px;
+}
+
+.diary-detail__content {
+  white-space: pre-line;
+  margin-bottom: 28px;
+}
+
+.diary-detail__actions {
+  display: flex;
+  gap: 10px;
+  border-top: 1px dashed var(--border);
+  padding-top: 20px;
+}
+
+/* ============================================
+   버튼 공통
+   ============================================ */
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 14px var(--shadow); }
+
+.btn--primary { background: var(--accent-joy); color: var(--text); }
+.btn--muted { background: var(--border); color: var(--text); }
+.btn--danger { background: var(--accent-excited); color: var(--text); }
+
+/* ============================================
+   폼 (작성/수정 공용)
+   ============================================ */
+.diary-form {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: 0 4px 12px var(--shadow);
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.form-group { margin-bottom: 20px; }
+
+.form-label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 6px;
+  font-size: 0.92rem;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: var(--bg);
+}
+
+.form-textarea { min-height: 160px; resize: vertical; }
+
+/* ============================================
+   삭제 확인 페이지
+   ============================================ */
+.confirm-box {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 32px;
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+.confirm-box__actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* ============================================
+   푸터
+   ============================================ */
+.site-footer {
+  text-align: center;
+  padding: 24px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+/* ============================================
+   반응형
+   ============================================ */
+@media (max-width: 640px) {
+  .mood-calendar__grid { grid-template-columns: repeat(10, 1fr); }
+  .diary-detail, .diary-form { padding: 24px; }
+  .site-header__inner { padding: 14px 16px; }
+}

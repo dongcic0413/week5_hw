@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}오늘의 다이어리 - 상세{% endblock %}
+
+{% block content %}
+
+  <!--
+    ============================================
+    TODO (6주차 과제): 아래는 디자인 확인용 예시 데이터입니다.
+    post 객체의 실제 필드로 교체하세요.
+
+      {{ post.created_at|date:"Y년 n월 j일" }}
+      {{ post.title }}
+      {{ post.content }}
+      {{ post.category }}
+
+    수정/삭제 버튼의 href도 아래처럼 연결하세요.
+      {% url 'post_update' post.pk %}
+      {% url 'post_delete' post.pk %}
+    ============================================
+  -->
+  <article class="diary-detail">
+    <div class="diary-detail__date">2026년 3월 12일</div>
+    <h1 class="diary-detail__title">중앙도서관 4층 자리 성공</h1>
+    <span class="mood-tag mood-tag--joy">기쁨</span>
+
+    <p class="diary-detail__content" style="margin-top:16px;">
+      아침 일찍 가서 창가 자리 잡았다. 날씨도 좋고 공부도 잘 됐다.
+      이런 날은 하루가 길게 느껴져서 좋다. 저녁엔 스터디 팀원들이랑
+      저녁도 같이 먹었는데, 다들 요즘 프로젝트 얘기로 신나 보였다.
+    </p>
+
+    <div class="diary-detail__actions">
+      <a href="#" class="btn btn--muted">목록으로</a>
+      <a href="#" class="btn btn--primary">수정</a>
+      <a href="#" class="btn btn--danger">삭제</a>
+    </div>
+  </article>
+
+{% endblock %}

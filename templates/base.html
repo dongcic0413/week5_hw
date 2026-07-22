@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}오늘의 다이어리{% endblock %}</title>
+
+  <!-- 폰트: 제목/날짜는 손글씨 느낌(Gaegu), 본문은 가독성 좋은 Pretendard -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  <!--
+    이 템플릿은 아래 URL name이 urls.py에 등록되어 있다고 가정합니다.
+    (6주차 CRUD 구현 시 이 이름으로 path()를 등록하세요)
+      - post_list    : 게시글 목록
+      - post_detail  : 게시글 상세 (pk 필요)
+      - post_create  : 게시글 작성
+      - post_update  : 게시글 수정 (pk 필요)
+      - post_delete  : 게시글 삭제 확인 (pk 필요)
+  -->
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="{% url 'post_list' %}" class="logo">
+        <span class="logo__mark">🖇️</span>
+        <span class="logo__text">오늘의 다이어리</span>
+      </a>
+      <nav class="site-nav">
+        <a href="{% url 'post_list' %}" class="site-nav__link">목록</a>
+        <a href="{% url 'post_create' %}" class="site-nav__link site-nav__link--cta">오늘 기록하기</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <p>오늘의 다이어리 · 백엔드 스터디 5~9주차 실습 프로젝트</p>
+  </footer>
+
+</body>
+</html>

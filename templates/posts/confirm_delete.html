@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}오늘의 다이어리 - 삭제 확인{% endblock %}
+
+{% block content %}
+
+  <!--
+    ============================================
+    TODO (6주차 과제): {{ post.title }} 로 실제 게시글 제목을 표시하고,
+    <form>의 action이 삭제 처리 View로 향하도록 연결하세요 (POST 방식 권장).
+    ============================================
+  -->
+  <div class="confirm-box">
+    <p class="page-subtitle" style="margin-bottom:4px;">이 기록을 삭제할까요?</p>
+    <h2 class="diary-detail__title" style="font-size:1.3rem;">중앙도서관 4층 자리 성공</h2>
+    <p style="color:var(--text-muted); font-size:0.9rem;">삭제하면 다시 되돌릴 수 없어요.</p>
+
+    <form method="post" class="confirm-box__actions">
+      {% csrf_token %}
+      <a href="#" class="btn btn--muted">취소</a>
+      <button type="submit" class="btn btn--danger">삭제하기</button>
+    </form>
+  </div>
+
+{% endblock %}
