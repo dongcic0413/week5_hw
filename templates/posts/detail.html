@@ -3,7 +3,7 @@
 
 {% block content %}
 
-  <!--
+  {% comment %}
     ============================================
     TODO (6주차 과제): 아래는 디자인 확인용 예시 데이터입니다.
     post 객체의 실제 필드로 교체하세요.
@@ -17,7 +17,7 @@
       {% url 'post_update' post.pk %}
       {% url 'post_delete' post.pk %}
     ============================================
-  -->
+  {% endcomment %}
   <article class="diary-detail">
     <div class="diary-detail__date">2026년 3월 12일</div>
     <h1 class="diary-detail__title">중앙도서관 4층 자리 성공</h1>
