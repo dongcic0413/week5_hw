@@ -3,6 +3,11 @@ from django.conf import settings
 #Create your ideas here.
 from django.db import models
 
+class Category(models.TextChoices):
+    JOY = "기쁨", "기쁨"
+    EXCITED = "설렘", "설렘"
+    CALM = "평온", "평온"
+
 class Tag(models.Model):
     name = models.CharField(max_length=30, unique=True)
 

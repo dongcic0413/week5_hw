@@ -19,20 +19,22 @@
     ============================================
   {% endcomment %}
   <article class="diary-detail">
-    <div class="diary-detail__date">2026년 3월 12일</div>
-    <h1 class="diary-detail__title">중앙도서관 4층 자리 성공</h1>
-    <span class="mood-tag mood-tag--joy">기쁨</span>
+    <div class="diary-detail__date">{{ post.created_at|date:"Y년 n월 j일" }}</div>
+    <h1 class="diary-detail__title">{{ post.title }}</h1>
+    <span class="mood-tag {{ post.mood_class }}">{{ post.category }}</span>
 
     <p class="diary-detail__content" style="margin-top:16px;">
-      아침 일찍 가서 창가 자리 잡았다. 날씨도 좋고 공부도 잘 됐다.
-      이런 날은 하루가 길게 느껴져서 좋다. 저녁엔 스터디 팀원들이랑
-      저녁도 같이 먹었는데, 다들 요즘 프로젝트 얘기로 신나 보였다.
+      {{ post.content|linebreaksbr }}
     </p>
 
     <div class="diary-detail__actions">
-      <a href="#" class="btn btn--muted">목록으로</a>
-      <a href="#" class="btn btn--primary">수정</a>
-      <a href="#" class="btn btn--danger">삭제</a>
+      <a href="{% url 'post_list' %}" class="btn btn--muted">목록으로</a>
+      <a href="{% url 'post_update' post.pk %}" class="btn btn--primary">수정</a>
+      
+      <form action="{% url 'post_delete' post.pk %}" method="POST" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn--danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
+      </form>
     </div>
   </article>
 
