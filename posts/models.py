@@ -3,6 +3,10 @@ from django.conf import settings
 #Create your ideas here.
 from django.db import models
 
+class Category(models.TextChoices):
+    JOY = "기쁨", "기쁨"
+    EXCITED = "설렘", "설렘"
+    CALM = "평온", "평온"
 
 class Tag(models.Model):
     name = models.CharField(max_length=30, unique=True)
@@ -19,9 +23,7 @@ class Post(models.Model):
 
     title = models.CharField(max_length=100)
     content = models.TextField()
-    category = models.CharField(
-        max_length=10, choices=CATEGORY_CHOICES, default="평온"
-    )
+    category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, default="평온")
     is_published = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -40,6 +42,15 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def mood_class(self):
+        mood_class_map = {
+            "기쁨": "mood-tag--joy",
+            "설렘": "mood-tag--excited",
+            "평온": "mood-tag--calm",
+        }
+        return mood_class_map.get(self.category, "mood-tag--calm")
 
 
 class Comment(models.Model):
@@ -61,3 +72,13 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+MOOD_CLASS_MAP = {
+    Category.JOY: 'mood-tag--joy',
+    Category.EXCITED: 'mood-tag--excited',
+    Category.CALM: 'mood-tag--calm',
+    }
+
+@property
+def mood_class(self):
+    return self.MOOD_CLASS_MAP.get(self.category, 'mood-tag--calm')
