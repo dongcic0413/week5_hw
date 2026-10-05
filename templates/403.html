@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}접근 권한 없음 · 오늘의 다이어리{% endblock %}
+
+{% block content %}
+<h1 class="page-title">접근 권한이 없어요</h1>
+<p class="page-subtitle">{{ exception|default:"이 페이지에 접근할 권한이 없어요." }}</p>
+<a href="{% url 'post_list' %}" class="btn btn--primary">목록으로</a>
+{% endblock %}
