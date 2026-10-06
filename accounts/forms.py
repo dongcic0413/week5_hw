@@ -6,6 +6,6 @@ class SignUpForm(UserCreationForm):
         "email"
     ).formfield(required=True)
 
-    class meta(UserCreationForm.Meta):
+    class Meta(UserCreationForm.Meta):
         model = User
         fields = ("username", "email")

@@ -30,11 +30,16 @@ class Post(models.Model):
 
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
+        on_delete=models.CASCADE,
         related_name="posts",
     )
+
+    def is_author(self, user):
+        """
+        이 글의 작성자가 user 본인인지 확인.
+        """
+        return self.author_id == user.id
+
     tags = models.ManyToManyField(Tag, related_name="posts", blank=True)
 
     class Meta:
@@ -59,9 +64,7 @@ class Comment(models.Model):
     )
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
+        on_delete=models.CASCADE,
         related_name="comments",
     )
     content = models.TextField()
@@ -72,13 +75,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
-
-MOOD_CLASS_MAP = {
-    Category.JOY: 'mood-tag--joy',
-    Category.EXCITED: 'mood-tag--excited',
-    Category.CALM: 'mood-tag--calm',
-    }
-
-@property
-def mood_class(self):
-    return self.MOOD_CLASS_MAP.get(self.category, 'mood-tag--calm')
